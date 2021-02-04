@@ -279,7 +279,8 @@ func resourceIBMISSSHKeyDelete(d *schema.ResourceData, meta interface{}) error {
 func keyDelete(d *schema.ResourceData, meta interface{}, id string) error {
 	sess, err := vpcClient(meta)
 	if err != nil {
-		return err
+		d.SetId("")
+		return nil
 	}
 
 	getKeyOptions := &vpcv1.GetKeyOptions{
@@ -287,10 +288,8 @@ func keyDelete(d *schema.ResourceData, meta interface{}, id string) error {
 	}
 	_, response, err := sess.GetKey(getKeyOptions)
 	if err != nil {
-		if response != nil && response.StatusCode == 404 {
-			return nil
-		}
-		return fmt.Errorf("Error Getting SSH Key (%s): %s\n%s", id, err, response)
+		d.SetId("")
+		return nil
 	}
 
 	options := &vpcv1.DeleteKeyOptions{
@@ -298,7 +297,7 @@ func keyDelete(d *schema.ResourceData, meta interface{}, id string) error {
 	}
 	response, err = sess.DeleteKey(options)
 	if err != nil {
-		return fmt.Errorf("Error Deleting SSH Key : %s\n%s", err, response)
+		//swallow
 	}
 	d.SetId("")
 	return nil
