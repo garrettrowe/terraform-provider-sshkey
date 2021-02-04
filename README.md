@@ -1,0 +1,1 @@
+This provider extends the IBM Cloud terrafrom provider, overriding the default behavior for VPC gen 2 SSH Key creation. It allows for a key to already exist (matching by name) and will return the existing ID insted of failing in the case of conflict on create.
