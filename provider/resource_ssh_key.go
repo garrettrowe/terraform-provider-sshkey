@@ -27,8 +27,6 @@ const (
 	ResourceStatus = "resource_status"
 	//ResourceGroupName ...
 	ResourceGroupName = "resource_group_name"
-	//RelatedCRN ...
-	RelatedCRN            = "related_crn"
 )
 
 func getBaseController(meta interface{}) (string, error) {
@@ -291,6 +289,7 @@ func keyDelete(d *schema.ResourceData, meta interface{}, id string) error {
 		d.SetId("")
 		return nil
 	}
+	if response != nil {}
 
 	options := &vpcv1.DeleteKeyOptions{
 		ID: &id,
@@ -299,6 +298,7 @@ func keyDelete(d *schema.ResourceData, meta interface{}, id string) error {
 	if err != nil {
 		//swallow
 	}
+	if response != nil {}
 	d.SetId("")
 	return nil
 }
